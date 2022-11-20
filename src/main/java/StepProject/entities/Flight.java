@@ -1,4 +1,4 @@
-package StepProject.DAO;
+package StepProject.entities;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Flight implements Serializable {
-    private int flightID;
+    private String flightID;
     private String origin;
     private String destination;
     private String flightDate;
@@ -16,11 +16,11 @@ public class Flight implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public int getFlightID() {
+    public String getFlightID() {
         return flightID;
     }
 
-    public void setFlightID(int flightID) {
+    public void setFlightID(String flightID) {
         this.flightID = flightID;
     }
 
@@ -64,14 +64,12 @@ public class Flight implements Serializable {
         this.seatAvailable = seatAvailable;
     }
 
-    public Flight(){}
-
     public Flight(String origin, String destination) {
         this.origin = origin;
         this.destination = destination;
     }
 
-    public Flight(int flightID, String origin, String destination, String flightDate, String flightTime, int seatAvailable) throws ParseException {
+    public Flight(String flightID, String origin, String destination, String flightDate, String flightTime, int seatAvailable) throws ParseException {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
         SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
         Date date1 = sdf1.parse(flightDate);
@@ -88,8 +86,8 @@ public class Flight implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Flight ticket = (Flight) o;
-        return flightID == ticket.flightID && seatAvailable == ticket.seatAvailable && Objects.equals(origin, ticket.origin) && Objects.equals(destination, ticket.destination) && Objects.equals(flightDate, ticket.flightDate) && Objects.equals(flightTime, ticket.flightTime);
+        Flight flight = (Flight) o;
+        return seatAvailable == flight.seatAvailable && Objects.equals(flightID, flight.flightID) && Objects.equals(origin, flight.origin) && Objects.equals(destination, flight.destination) && Objects.equals(flightDate, flight.flightDate) && Objects.equals(flightTime, flight.flightTime);
     }
 
     @Override
@@ -99,7 +97,7 @@ public class Flight implements Serializable {
 
     @Override
     public String toString() {
-        return "Ticket{" +
+        return "Flight{" +
                 "flightID=" + flightID +
                 ", origin='" + origin + '\'' +
                 ", destination='" + destination + '\'' +

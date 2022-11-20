@@ -1,5 +1,8 @@
 package StepProject.DAO;
 
+import StepProject.InterDAO.FlightDao;
+import StepProject.entities.Flight;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +30,8 @@ public class CollectionFlightDao implements FlightDao {
     }
 
     @Override
-    public List<Flight> getFlightById(int id) {
-        return getAllFlight().stream().filter(s -> s.getFlightID() == id).collect(Collectors.toList());
+    public List<Flight> getFlightById(String id) {
+        return getAllFlight().stream().filter(s -> s.getFlightID().equals(id)).collect(Collectors.toList());
     }
 
     @Override
@@ -39,8 +42,8 @@ public class CollectionFlightDao implements FlightDao {
     }
 
     @Override
-    public void deleteFlight(int id) {
-        List<Flight> flights = getAllFlight().stream().filter(s -> s.getFlightID() != id).collect(Collectors.toList());
+    public void deleteFlight(String id) {
+        List<Flight> flights = getAllFlight().stream().filter(s -> !s.getFlightID().equals(id)).collect(Collectors.toList());
         write(flights);
     }
 

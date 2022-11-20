@@ -1,4 +1,4 @@
-package StepProject.DAO;
+package StepProject.entities;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -6,10 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class BookingApp implements Serializable {
+public class Booking implements Serializable {
     private String passengerName;
     private String passengerSurname;
-    private int bookingID;
+    private String bookingID;
     private String bookingOrigin;
     private String bookingDestination;
     private String bookingDate;
@@ -32,11 +32,11 @@ public class BookingApp implements Serializable {
         this.passengerSurname = passengerSurname;
     }
 
-    public int getBookingID() {
+    public String getBookingID() {
         return bookingID;
     }
 
-    public void setBookingID(int bookingID) {
+    public void setBookingID(String bookingID) {
         this.bookingID = bookingID;
     }
 
@@ -72,10 +72,10 @@ public class BookingApp implements Serializable {
         this.bookingTime = bookingTime;
     }
 
-    public BookingApp() {
+    public Booking() {
     }
 
-    public BookingApp(String passengerName, String passengerSurname, int bookingID, String bookingOrigin, String bookingDestination, String bookingDate, String bookingTime) throws ParseException {
+    public Booking(String passengerName, String passengerSurname, String bookingID, String bookingOrigin, String bookingDestination, String bookingDate, String bookingTime) throws ParseException {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
         SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
         Date date1 = sdf1.parse(bookingDate);
@@ -92,7 +92,7 @@ public class BookingApp implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookingApp that = (BookingApp) o;
+        Booking that = (Booking) o;
         return bookingID == that.bookingID && Objects.equals(passengerName, that.passengerName) && Objects.equals(passengerSurname, that.passengerSurname) && Objects.equals(bookingOrigin, that.bookingOrigin) && Objects.equals(bookingDestination, that.bookingDestination) && Objects.equals(bookingDate, that.bookingDate) && Objects.equals(bookingTime, that.bookingTime);
     }
     @Override

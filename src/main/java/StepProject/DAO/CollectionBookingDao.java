@@ -1,5 +1,8 @@
 package StepProject.DAO;
 
+import StepProject.InterDAO.BookingDao;
+import StepProject.entities.Booking;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +15,13 @@ public class CollectionBookingDao implements BookingDao {
         this.bookingFile = bookingFile;
     }
     @Override
-    public List<BookingApp> getAllBooking() {
+    public List<Booking> getAllBooking() {
         try (FileInputStream fis = new FileInputStream(bookingFile);
              BufferedInputStream bis = new BufferedInputStream(fis);
              ObjectInputStream ois = new ObjectInputStream(bis);)
         {
             Object bookings = ois.readObject();
-            List<BookingApp> allBookins = (ArrayList<BookingApp>) bookings;
+            List<Booking> allBookins = (ArrayList<Booking>) bookings;
             return allBookins;
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
@@ -26,7 +29,7 @@ public class CollectionBookingDao implements BookingDao {
         }
     }
 
-    private void writeBooking(List<BookingApp> bookings) {
+    private void writeBooking(List<Booking> bookings) {
         try (FileOutputStream fos = new FileOutputStream(bookingFile);
              BufferedOutputStream bos = new BufferedOutputStream(fos);
              ObjectOutputStream oos = new ObjectOutputStream(bos);)
@@ -38,19 +41,19 @@ public class CollectionBookingDao implements BookingDao {
     }
 
     @Override
-    public List<BookingApp> getBookingById(int id) {
-        return getAllBooking().stream().filter(s -> s.getBookingID() == id).collect(Collectors.toList());
+    public List<Booking> getBookingById(String id) {
+        return getAllBooking().stream().filter(s -> s.getBookingID().equals(id)).collect(Collectors.toList());
     }
 
     @Override
-    public void cancelBooking(int id) {
-        List<BookingApp> bookings = getAllBooking().stream().filter(s -> s.getBookingID() != id).collect(Collectors.toList());
+    public void cancelBooking(String id) {
+        List<Booking> bookings = getAllBooking().stream().filter(s -> s.getBookingID().equals(id)).collect(Collectors.toList());
         writeBooking(bookings);
     }
 
     @Override
-    public void saveBooking(BookingApp b) {
-        List<BookingApp> bookings = getAllBooking();
+    public void saveBooking(Booking b) {
+        List<Booking> bookings = getAllBooking();
         bookings.add(b);
         writeBooking(bookings);
     }

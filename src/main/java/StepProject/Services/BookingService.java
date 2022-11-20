@@ -1,8 +1,7 @@
 package StepProject.Services;
 
-import StepProject.DAO.BookingApp;
+import StepProject.entities.Booking;
 import StepProject.DAO.CollectionBookingDao;
-import StepProject.DAO.Flight;
 
 import java.io.File;
 import java.util.List;
@@ -23,7 +22,7 @@ public class BookingService {
         this.cbd = cbd;
     }
 
-    public List<BookingApp> myBookings(String name, String surname) {
+    public List<Booking> myBookings(String name, String surname) {
         return cbd.getAllBooking()
                 .stream()
                 .filter(s -> ((s.getPassengerName().toLowerCase()).equals(name.toLowerCase())
